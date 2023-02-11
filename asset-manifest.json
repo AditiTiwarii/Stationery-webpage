@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Stationery-webpage/static/css/main.4ce6e997.css",
+    "main.js": "/Stationery-webpage/static/js/main.1da1593e.js",
+    "static/js/787.b330baeb.chunk.js": "/Stationery-webpage/static/js/787.b330baeb.chunk.js",
+    "index.html": "/Stationery-webpage/index.html",
+    "main.4ce6e997.css.map": "/Stationery-webpage/static/css/main.4ce6e997.css.map",
+    "main.1da1593e.js.map": "/Stationery-webpage/static/js/main.1da1593e.js.map",
+    "787.b330baeb.chunk.js.map": "/Stationery-webpage/static/js/787.b330baeb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4ce6e997.css",
+    "static/js/main.1da1593e.js"
+  ]
+}
