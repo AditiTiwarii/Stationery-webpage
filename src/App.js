@@ -1,7 +1,3 @@
-import "./App.css";
-import BannerName from "./Components/BannerName";
-import Header from "./Components/Header";
-import MenuContainer from "./Components/MenuContainer";
 import {
   AccountBalanceWalletRounded,
   Chat,
@@ -11,18 +7,24 @@ import {
   SummarizeRounded,
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
+import "./App.css";
+import BannerName from "./Components/BannerName";
+import Header from "./Components/Header";
+import MenuContainer from "./Components/MenuContainer";
 import SubMenuContainer from "./Components/SubMenuContainer";
 import MenuCard from "./Components/MenuCard";
 import {MenuItems, Items} from "./Components/Data";
 import ItemCard from "./Components/ItemCard";
 import DebitCard from "./Components/DebitCard";
 import CartItem from "./Components/CartItem";
+import { useStateValue } from "./Components/StateProvider";
 
 function App() {
 
   const [isMainData, setMainData] = useState(
     Items.filter((element) => element.itemId === "clips01")
-  )
+  );
+  const [{cart}, dispatch] =useStateValue();
 
   useEffect(() => {
     const menuLi = document.querySelectorAll("#menu li");
@@ -46,7 +48,7 @@ function App() {
     }
     
     menuCards.forEach((n) => n.addEventListener("click", setMenuCardActive));
-  }, [isMainData]);
+  }, [isMainData, cart]);
 
   const setData = (itemId) => {
     setMainData(Items.filter((element) => element.itemId === itemId));
@@ -60,7 +62,7 @@ function App() {
       <div className="mainContainer">
 
           <div className="banner">
-            <BannerName name={"Aditi"} discount={"20"} more={"#"} />
+            <BannerName name={"Aditi"} discount={"40"} more={"#"} />
             <img
               src="https://firebasestorage.googleapis.com/v0/b/stationery-10522.appspot.com/o/cute.png?alt=media&token=682757d8-ff34-40ee-8ebe-12d4a3b7fe4d"
               alt=""
@@ -108,52 +110,44 @@ function App() {
               <DebitCard />
             </div>
           </div>
+          {!cart ? (
+            <div className="addSomeItem">
+              <img
+                src=""
+                alt=""
+                className="emptyCart"
+              />
+            </div>
+          ) : (
+            <div className="cartCheckOutContianer">
+              <div className="cartContainer">
+                <SubMenuContainer />
 
-          <div className="cartCheckOutContainer">
-          <SubMenuContainer name={"Carts Items"}/>
-            <div className="cartContainer">
-              <div className="cartItems">
-                <CartItem 
-                name={"Clips"}
-                imgSrc={"https://firebasestorage.googleapis.com/v0/b/stationery-10522.appspot.com/o/1.jpg?alt=media&token=f88f9fe9-eaf0-4581-9ff9-5f217dcf1c19"}
-                price={"7.55"}
-                />
+                <div className="cartItems">
+                  {cart &&
+                    cart.map((data) => (
+                      <CartItem
+                        key={data.id}
+                        itemId={data.id}
+                        name={data.name}
+                        imgSrc={data.imgSrc}
+                        qty={"4"}
+                        price={data.price}
+                      />
+                    ))}
+                </div>
               </div>
+              <div className="totalSection">
+                <h3>Total</h3>
+                <p>
+                  <span>$ </span>
+                </p>
+              </div>
+              <button className="checkOut">Check Out</button>
             </div>
-
-            <div className="totalSection">
-              <h3>Total</h3>
-              <p>
-                <span>$ </span>55.50
-              </p>
-            </div>
-
-            <button className="checkout">Check Out</button>
-
-          </div>
+          )}
         </div>
       </main>
-
-
-
-
-
-      <div className="bottomMenu">
-        <ul id="menu">
-          <MenuContainer link={'#'} icon= {<HomeRounded />}  isHome/>
-
-          <MenuContainer link={'#'} icon= {<Chat />} />
-
-          <MenuContainer link={'#'} icon= {<AccountBalanceWalletRounded />} />
-
-          <MenuContainer link={'#'} icon= {<Favorite/>} />
-
-          <MenuContainer link={'#'} icon= {<SummarizeRounded/>} />
-
-          <MenuContainer link={'#'} icon= {<Settings />} />
-
-        </ul>
-      </div>
     </div>
   );
 }

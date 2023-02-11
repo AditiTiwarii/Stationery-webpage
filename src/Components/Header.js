@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useState} from "react";
 import {} from "@mui/material";
 import {
     BarChart,
@@ -15,7 +15,10 @@ import {
         document.querySelector(".rightMenu").classList.toggle("active");
       });
     }, []);
-  
+    const [openMenu, setOpenMenu] = useState(false);
+  const toggleMMenu = () => {
+    setOpenMenu(!openMenu);
+  };
     return (
       <header>
         <img
@@ -49,7 +52,12 @@ import {
         </div>
   
         <div className="toggleMenu">
-          <BarChart className="toggleIcon" />
+          <BarChart className="toggleIcon" onClick={toggleMMenu}/>
+          {openMenu ? (
+        <div className="toggleMenu">
+         
+        </div>
+      ) : null}
         </div>
       </header>
     );
